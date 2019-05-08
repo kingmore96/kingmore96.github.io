@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>java基础--多线程部分-线程相关概念 | Zoey的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="技术规范一些奇怪的并发bug的根源是什么？我们编写并发程序的时候需要注意什么？计算机的发展历史中，cpu，内存和io设备都在不断的发展进化，但是有一个核心的矛盾是一直存在的，那就是这三者之间的速度差异是巨大的。程序的性能取决于系统中最慢的部分，所以我们需要协调这三者的速度。计算机体系结构、操作系统和编译程序都做出了一些贡献。  cpu增加了缓存，均衡与内存的速度差异。 —- 》 可见性问题（不可见">
-<meta name="keywords" content="线程概念 多线程">
+  <meta name="description" content="技术规范一些奇怪的并发bug的根源是什么？我们编写并发程序的时候需要注意什么？计算机的发展历史中，cpu，内存和io设备都在不断的发展进化，但是有一个核心的矛盾是一直存在的，那就是这三者之间的速度差异是巨大的。程序的性能取决于系统中最慢的部分，所以我们需要协调这三者的速度。">
+<meta name="keywords" content="线程,线程分析工具,并发bug根源">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java基础--多线程部分-线程相关概念">
 <meta property="og:url" content="http://yoursite.com/2019/03/01/test/index.html">
 <meta property="og:site_name" content="Zoey的博客">
-<meta property="og:description" content="技术规范一些奇怪的并发bug的根源是什么？我们编写并发程序的时候需要注意什么？计算机的发展历史中，cpu，内存和io设备都在不断的发展进化，但是有一个核心的矛盾是一直存在的，那就是这三者之间的速度差异是巨大的。程序的性能取决于系统中最慢的部分，所以我们需要协调这三者的速度。计算机体系结构、操作系统和编译程序都做出了一些贡献。  cpu增加了缓存，均衡与内存的速度差异。 —- 》 可见性问题（不可见">
+<meta property="og:description" content="技术规范一些奇怪的并发bug的根源是什么？我们编写并发程序的时候需要注意什么？计算机的发展历史中，cpu，内存和io设备都在不断的发展进化，但是有一个核心的矛盾是一直存在的，那就是这三者之间的速度差异是巨大的。程序的性能取决于系统中最慢的部分，所以我们需要协调这三者的速度。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-08T02:11:26.952Z">
+<meta property="og:updated_time" content="2019-05-08T02:17:56.649Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java基础--多线程部分-线程相关概念">
-<meta name="twitter:description" content="技术规范一些奇怪的并发bug的根源是什么？我们编写并发程序的时候需要注意什么？计算机的发展历史中，cpu，内存和io设备都在不断的发展进化，但是有一个核心的矛盾是一直存在的，那就是这三者之间的速度差异是巨大的。程序的性能取决于系统中最慢的部分，所以我们需要协调这三者的速度。计算机体系结构、操作系统和编译程序都做出了一些贡献。  cpu增加了缓存，均衡与内存的速度差异。 —- 》 可见性问题（不可见">
+<meta name="twitter:description" content="技术规范一些奇怪的并发bug的根源是什么？我们编写并发程序的时候需要注意什么？计算机的发展历史中，cpu，内存和io设备都在不断的发展进化，但是有一个核心的矛盾是一直存在的，那就是这三者之间的速度差异是巨大的。程序的性能取决于系统中最慢的部分，所以我们需要协调这三者的速度。">
   
     <link rel="alternative" href="/atom.xml" title="Zoey的博客" type="application/atom+xml">
   
@@ -183,7 +183,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="技术规范"><a href="#技术规范" class="headerlink" title="技术规范"></a>技术规范</h2><p><u><strong>一些奇怪的并发bug的根源是什么？我们编写并发程序的时候需要注意什么？</strong></u><br>计算机的发展历史中，cpu，内存和io设备都在不断的发展进化，但是有一个核心的矛盾是一直存在的，那就是这三者之间的速度差异是巨大的。程序的性能取决于系统中最慢的部分，所以我们需要协调这三者的速度。计算机体系结构、操作系统和编译程序都做出了一些贡献。</p>
+        <h2 id="技术规范"><a href="#技术规范" class="headerlink" title="技术规范"></a>技术规范</h2><p><u><strong>一些奇怪的并发bug的根源是什么？我们编写并发程序的时候需要注意什么？</strong></u><br>计算机的发展历史中，cpu，内存和io设备都在不断的发展进化，但是有一个核心的矛盾是一直存在的，那就是这三者之间的速度差异是巨大的。程序的性能取决于系统中最慢的部分，所以我们需要协调这三者的速度。<a id="more"></a>计算机体系结构、操作系统和编译程序都做出了一些贡献。</p>
 <ul>
 <li><p>cpu增加了缓存，均衡与内存的速度差异。 —- 》 可见性问题（不可见）</p>
 </li>
@@ -191,7 +191,6 @@
 </li>
 <li>编译程序优化指令执行次序，使缓存能够更加合理的利用上。 —》有序性问题（不按照我们的想法有序了）在引入了新的技术，势必会带来一些问题，并发编程相关的bug和这三者的优化有关。</li>
 </ul>
-<hr>
 <p><u><strong>创建线程的方式？</strong></u><br>创建线程有两种方式，本质都是重写run方法。</p>
 <ul>
 <li>继承Thread类</li>
@@ -294,7 +293,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">线程概念 多线程</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">线程</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">线程分析工具</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">并发bug根源</a>
         		</li>
       		
 		</ul>
@@ -426,7 +433,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">线程概念 多线程</a>
+                <a href="javascript:void(0)" class="js-tag color3">线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">线程分析工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">并发bug根源</a>
               </li>
             
             <div class="clearfix"></div>
